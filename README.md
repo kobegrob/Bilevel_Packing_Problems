@@ -1,2 +1,2 @@
 # Bilevel_Packing_Problems
-Thos 
+This contains the implementation for a standard depth first branch and bound algorithm to solve bilevel packing mixed integer problems with interdiction constraints. This branch and bound algorithm is an implementation of the methodology explained in (Reference to my own paper). Note that this implementation is based on the bilevel knapsack solver found in https://github.com/nwoeanhinnogaehr/bkpsolver where they implement the branch and bound algorithm for their paper https://optimization-online.org/2022/10/a-fast-combinatorial-algorithm-for-the-bilevel-knapsack-problem-with-interdiction-constraints/.
