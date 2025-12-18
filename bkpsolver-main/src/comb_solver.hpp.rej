@@ -1,0 +1,65 @@
+@@ -39,7 +39,7 @@
+             cap_t cap;
+             profit_t profit;
+ 
+-            bool operator==(const LowerTableEntry& other) {
++            bool operator==(const LowerTableEntry& other) const {
+                 return profit == other.profit && cap == other.cap;
+             }
+         };
+@@ -51,7 +51,7 @@
+     profit_t max_profit;
+     std::vector<item_t> opt_solution;
+ 
+-    std::chrono::system_clock::time_point opt_time;
++    std::chrono::steady_clock::time_point opt_time;
+ 
+     BKPSolution<profit_t> sol;
+ 
+@@ -170,8 +170,8 @@
+     {
+         sol = BKPSolution<profit_t>(inst.up_cap, inst.lo_cap);
+ 
+-        auto lb_start_time = std::chrono::high_resolution_clock::now();
+-        auto lb_end_time = std::chrono::high_resolution_clock::now();
++        auto lb_start_time = std::chrono::steady_clock::now();
++        auto lb_end_time = std::chrono::steady_clock::now();
+         auto opt_start_time = lb_end_time;
+ 
+         compute_lower_bound_sparse();
+@@ -185,7 +185,7 @@
+             opt_solution = sol.selected_items;
+             max_profit = sol.profit;
+             opt_time = lb_end_time;
+-            opt_start_time = std::chrono::high_resolution_clock::now();
++            opt_start_time = std::chrono::steady_clock::now();
+         }
+         else
+         {
+@@ -201,7 +201,7 @@
+             compute_upper_bound_sparse();
+         }
+ 
+-        auto bnb_end_time = std::chrono::high_resolution_clock::now();
++        auto bnb_end_time = std::chrono::steady_clock::now();
+ 
+         std::cout << "lower_bound_time " << std::chrono::duration<double, std::milli>(lb_end_time - lb_start_time).count() << std::endl;
+         std::cout << "opt_time " << std::chrono::duration<double, std::milli>(opt_time - lb_end_time).count() << std::endl;
+@@ -210,7 +210,7 @@
+         return sol;
+     }
+ 
+-    std::chrono::system_clock::time_point branch_start_time;
++    std::chrono::steady_clock::time_point branch_start_time;
+     uint64_t max_depth = 0;
+ 
+     void solve_rec(size_t i, cap_t free_cap_up, cap_t free_cap_lo, profit_t cur_profit)
+@@ -231,7 +231,7 @@
+             opt_solution = sol.selected_items;
+             max_profit = sol.profit;
+ 
+-            opt_time = std::chrono::high_resolution_clock::now();
++            opt_time = std::chrono::steady_clock::now();
+         }
+ 
+         if (free_cap_up <= 0 || free_cap_lo <= 0)
